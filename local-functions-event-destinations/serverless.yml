@@ -1,0 +1,25 @@
+# Remove or replace the app/org with your values
+# https://serverless.com/framework/docs/dashboard/ 
+org: fernando
+app: destinations
+service: local-function-destinations
+
+provider:
+  name: aws
+  runtime: python3.8
+
+# An example of using other functions in a service as destinations
+# You can also reference functions by ARN, however referencing 
+# like we do below will keep the stage of your destinations
+# in sync - you'll have a `dev` function destination for `dev` and 
+# a `prod` destination for `prod`.
+functions:
+  helloStarting:
+    handler: handler.starting
+    destinations:
+      onSuccess: helloSuccess
+      onFailure: helloFailure
+  helloSuccess:
+    handler: handler.success
+  helloFailure:
+    handler: handler.failure

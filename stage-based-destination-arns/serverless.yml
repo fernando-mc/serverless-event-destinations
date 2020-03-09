@@ -1,0 +1,24 @@
+# Remove or replace the app/org with your values
+# https://serverless.com/framework/docs/dashboard/ 
+org: fernando
+app: destinations
+service: stage-based-destinations
+
+# This is an example of using stage-based ARNs 
+# when you have multiple destinations resources 
+# already created for each stage.
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, 'dev'}
+  environment:
+    SUCCESS_ARN: arn:aws:sqs:us-east-1:444455556666:successQueue-${self:provider.stage}
+    FAILURE_ARN: arn:aws:sns:us-east-1:444455556666:failureTopic-${self:provider.stage}
+
+
+functions:
+  helloStarting:
+    handler: handler.starting
+    destinations:
+      onSuccess: 
+      onFailure: arn:aws:lambda:us-east-1:444455556666:function:failureFunction

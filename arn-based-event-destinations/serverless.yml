@@ -1,0 +1,22 @@
+# Remove or replace the app/org with your values
+# https://serverless.com/framework/docs/dashboard/ 
+org: fernando
+app: destinations
+service: arn-based-destinations
+
+provider:
+  name: aws
+  runtime: python3.8
+
+# You can also use hard-coded ARNs as event destinations
+# When hen hard coding ARNs like below, your dev and 
+# production services would both output to the same ARN. 
+# Because of this you may want to configure an output 
+# resource per-stage. For an example of this you can
+# look at the stage-based-destination-arns folder.
+functions:
+  helloStarting:
+    handler: handler.starting
+    destinations:
+      onSuccess: arn:aws:sqs:us-east-1:444455556666:successQueue
+      onFailure: arn:aws:lambda:us-east-1:444455556666:function:failureFunction

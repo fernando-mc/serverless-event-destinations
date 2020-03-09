@@ -1,0 +1,22 @@
+# This is an example of using stage-based ARNs 
+# when you have multiple destinations resources 
+# already created for each stage. You will need
+# To create a Framework Pro dashboard account:
+# https://serverless.com/framework/docs/dashboard/ 
+# And replace the org/app value below with your own
+# You will also need to setup the params in the 
+# Dashboard for each stage you plan on using
+org: fernando
+app: destinations
+service: stage-based-destinations-framework-pro
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  helloStarting:
+    handler: handler.starting
+    destinations:
+      onSuccess: ${param:SUCCESS_ARN}
+      onFailure: ${param:FAILURE_ARN}

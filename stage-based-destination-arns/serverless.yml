@@ -15,10 +15,9 @@ provider:
     SUCCESS_ARN: arn:aws:sqs:us-east-1:444455556666:successQueue-${self:provider.stage}
     FAILURE_ARN: arn:aws:sns:us-east-1:444455556666:failureTopic-${self:provider.stage}
 
-
 functions:
   helloStarting:
     handler: handler.starting
     destinations:
-      onSuccess: 
-      onFailure: arn:aws:lambda:us-east-1:444455556666:function:failureFunction
+      onSuccess: ${self:provider.environment.SUCCESS_ARN}
+      onFailure: ${self:provider.environment.FAILURE_ARN}

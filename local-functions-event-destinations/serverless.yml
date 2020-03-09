@@ -20,6 +20,6 @@ functions:
       onSuccess: helloSuccess
       onFailure: helloFailure
   helloSuccess:
-    handler: handler.success
+    handler: success.handler
   helloFailure:
-    handler: handler.failure
+    handler: failure.handler

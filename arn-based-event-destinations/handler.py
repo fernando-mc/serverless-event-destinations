@@ -5,7 +5,7 @@ def starting(event, context):
     if event["Success"] == True:
         response = {
             "statusCode": 200,
-            "body": json.dumps(body)
+            "body": json.dumps(event)
         }
         return response
     else:
